@@ -1,4 +1,4 @@
-from insalesapi.baseDao import BaseDao
+from insalesapi.base_dao import BaseDao
 from insalesapi.objects.product import Product
 
 class ProductsDao(BaseDao):

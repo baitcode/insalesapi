@@ -1,5 +1,5 @@
-from insalesapi.baseDao import BaseDao
-from insalesapi.objects.optionValue import OptionValue
+from insalesapi.base_dao import BaseDao
+from insalesapi.objects.option_value import OptionValue
 
 class OptionValuesDao(BaseDao):
 

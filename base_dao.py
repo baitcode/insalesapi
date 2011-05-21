@@ -1,6 +1,6 @@
 from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
-from insalesapi.util.restRequester import RestRequester
+from insalesapi.util.rest_requester import RestRequester
 
 
 class BaseDao(object):

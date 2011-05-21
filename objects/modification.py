@@ -1,7 +1,7 @@
 from unicodedata import decimal
 from xml.etree import ElementTree
-from insalesapi.objects.apiObject import ApiObject
-from insalesapi.objects.optionValue import OptionValue
+from insalesapi.objects.api_object import ApiObject
+from insalesapi.objects.option_value import OptionValue
 
 class Modification(ApiObject):
     def __init__(self, treeElement):

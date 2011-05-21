@@ -1,8 +1,8 @@
-from insalesapi.objects.optionName import OptionName
+from insalesapi.objects.option_name import OptionName
 from insalesapi.objects.modification import Modification
 from xml.etree import ElementTree
 from insalesapi.objects.image import Image
-from insalesapi.objects.apiObject import ApiObject
+from insalesapi.objects.api_object import ApiObject
 
 class Product(ApiObject):
     def __init__(self, treeElement):

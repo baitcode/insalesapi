@@ -1,4 +1,4 @@
-from insalesapi.objects.apiObject import ApiObject
+from insalesapi.objects.api_object import ApiObject
 
 class Order(ApiObject):
     def __init__(self, treeElement):
