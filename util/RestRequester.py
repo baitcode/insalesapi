@@ -5,9 +5,9 @@ class BadUrlException(Exception):
     def __init__(self, *args, **kwargs):
         super(BadUrlException, self).__init__(*args, **kwargs)
 
-class RESTRequester(object):
+class RestRequester(object):
     def __init__(self, user, password):
-        super(RESTRequester, self).__init__()
+        super(RestRequester, self).__init__()
         self.user = user
         self.password = password
         self.auth_header = base64.b64encode('{0}:{1}'.format(user, password))

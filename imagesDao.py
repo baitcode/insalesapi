@@ -1,4 +1,3 @@
-
 from insalesapi.baseDao import BaseDao
 from insalesapi.objects.image import Image
 

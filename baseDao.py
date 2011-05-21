@@ -1,13 +1,13 @@
 from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
-from insalesapi.util.RESTRequester import RESTRequester
+from insalesapi.util.RestRequester import RestRequester
 
 
 class BaseDao(object):
     def __init__(self, object_name, api_key, api_password, host):
         super(BaseDao, self).__init__()
         self.object_name = object_name
-        self.requester = RESTRequester(api_key, api_password)
+        self.requester = RestRequester(api_key, api_password)
         self.host = host
 
     def create(self, path, body, lang=None):
