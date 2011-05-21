@@ -6,7 +6,7 @@ class CategoriesDao(BaseDao):
     def __init__(self, api_key, api_password, host):
         super(CategoriesDao, self).__init__('category', api_key, api_password, host)
 
-    def getList(self, lang=None):
+    def get_list(self, lang=None):
         """
         @rtype: L{list}
         """

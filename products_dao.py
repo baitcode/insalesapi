@@ -6,7 +6,7 @@ class ProductsDao(BaseDao):
     def __init__(self, api_key, api_password, host):
         super(ProductsDao, self).__init__('product', api_key, api_password, host)
 
-    def getList(self, lang=None):
+    def get_list(self, lang=None):
         products = self.read('/admin/products.xml', lang)
         return Product.wrapCollection(products)
 

@@ -10,7 +10,7 @@ class OptionValuesDao(BaseDao):
         options = self.read('/admin/option_values.xml', lang)
         return OptionValue.wrapCollection(options)
 
-    def getListByOptionName(self, optionNameId, lang=None):
+    def get_list_by_option_name(self, optionNameId, lang=None):
         options = self.read('/admin/option_names/%d/option_values.xml' % optionNameId, lang)
         return OptionValue.wrapCollection(options)
 

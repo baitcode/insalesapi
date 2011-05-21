@@ -6,7 +6,7 @@ class OptionNamesDao(BaseDao):
     def __init__(self, api_key, api_password, host):
         super(OptionNamesDao, self).__init__('product', api_key, api_password, host)
 
-    def getList(self, lang=None):
+    def get_list(self, lang=None):
         options = self.read('/admin/option_names.xml', lang)
         return OptionName.wrapCollection(options)
 

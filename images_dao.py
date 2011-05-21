@@ -5,7 +5,7 @@ class ImagesDao(BaseDao):
     def __init__(self, api_key, api_password, host):
         super(ImagesDao, self).__init__('image', api_key, api_password, host)
 
-    def get(self, product_id, lang=None):
+    def get_list(self, product_id, lang=None):
         """ @rtype: L{list} """
         images = self.read('/admin/products/%d/images.xml' % product_id, lang)
         return Image.wrapCollection(images)
@@ -17,7 +17,7 @@ class ImagesDao(BaseDao):
 
     def add(self, product_id, image, lang=None):
         #TODO: validation, src title
-        images = self.createFile('/admin/products/%d/images.xml' % product_id, image, lang)
+        images = self.create_file('/admin/products/%d/images.xml' % product_id, image, lang)
         return Image.wrapCollection(images)
 
     def edit(self, product_id, image_id, lang=None):

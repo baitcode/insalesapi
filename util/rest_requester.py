@@ -12,13 +12,13 @@ class RestRequester(object):
         self.password = password
         self.auth_header = base64.b64encode('{0}:{1}'.format(user, password))
 
-    def prepareUrl(self, url, lang):
+    def prepare_url(self, url, lang):
         if not lang is None:
             url += '?lang=%s' % lang
         return url
 
     def post(self, url, body, lang=None):
-        req = urllib2.Request(self.prepareUrl(url, lang))
+        req = urllib2.Request(self.prepare_url(url, lang))
         print str(body)
         req.add_data(str(body))
         req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
@@ -27,8 +27,8 @@ class RestRequester(object):
         print('requesting {0}'.format(url))
         return urllib2.urlopen(req)
 
-    def postfile(self, url, body, lang=None):
-        req = urllib2.Request(self.prepareUrl(url, lang))
+    def post_file(self, url, body, lang=None):
+        req = urllib2.Request(self.prepare_url(url, lang))
         print str(body)
         req.add_data(str(body))
         req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
@@ -38,7 +38,7 @@ class RestRequester(object):
         return urllib2.urlopen(req)
 
     def put(self, url, body, lang=None):
-        req = urllib2.Request(self.prepareUrl(url, lang))
+        req = urllib2.Request(self.prepare_url(url, lang))
         req.get_method = lambda: 'PUT'
         req.add_data(str(body))
         req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
@@ -48,13 +48,13 @@ class RestRequester(object):
         return urllib2.urlopen(req)
 
     def get(self, url, lang=None):
-        req = urllib2.Request(self.prepareUrl(url, lang))
+        req = urllib2.Request(self.prepare_url(url, lang))
         req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
         print('requesting {0}'.format(url))
         return urllib2.urlopen(req)
 
     def delete(self, url, lang=None):
-        req = urllib2.Request(self.prepareUrl(url, lang), 'DELETE')
+        req = urllib2.Request(self.prepare_url(url, lang), 'DELETE')
         req.get_method = lambda: 'DELETE'
         req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
         print('requesting {0}'.format(url))
