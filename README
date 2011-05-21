@@ -1,8 +1,15 @@
-This module contains classes for organizing rest like integration with isSales SaaS eCommerce platform
+Hi all!
 
-Basically you should use Dao classes form insaleapi package, instantiating them using your api_key, api_password(you'll
-get those in your insales backoffice) and host of shop, example www.skychip.ru or skychip.myinsales.ru.
-Methods are simple they all return lists of objects from insalesapi.object package
+This module contains classes for organizing rest like integration with isSales SaaS eCommerce platform.
+
+Basically you should use Dao classes form insaleapi package, instantiating them using your api_key,
+api_password(you'llget those in your insales backoffice) and host of shop, example www.skychip.ru or
+skychip.myinsales.ru.
+
+Methods are simple they all return lists of typed objects from insalesapi.object package. If you're IDE
+understands EpiDoc you'll be twice happier, coz almost all function have marked return types.
 Everything is quite simple and intuitive, if not, feel free to submit ticket.
 
-More on insales www.insales.ru
+More on insales www.insales.ru.
+
+Good luck, and feel free to ask any question by email: batiyiv at gmail dot com.
