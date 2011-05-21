@@ -1,0 +1,8 @@
+This module contains classes for organizing rest like integration with isSales SaaS eCommerce platform
+
+Basically you should use Dao classes form insaleapi package, instantiating them using your api_key, api_password(you'll
+get those in your insales backoffice) and host of shop, example www.skychip.ru or skychip.myinsales.ru.
+Methods are simple they all return lists of objects from insalesapi.object package
+Everything is quite simple and intuitive, if not, feel free to submit ticket.
+
+More on insales www.insales.ru
