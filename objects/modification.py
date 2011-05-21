@@ -1,3 +1,6 @@
+from xml.etree import ElementTree
+from insalesapi.objects.apiObject import ApiObject
+
 class Modification(ApiObject):
     def __init__(self, treeElement):
         super(Modification, self).__init__(treeElement)

@@ -1,7 +1,8 @@
-from skychip.insales.api import ApiObjectCRUDDao
-from skychip.insales.objects import Image
 
-class ImagesDao(ApiObjectCRUDDao):
+from insalesapi.baseDao import BaseDao
+from insalesapi.objects.image import Image
+
+class ImagesDao(BaseDao):
     def __init__(self, api_key, api_password, host):
         super(ImagesDao, self).__init__('image', api_key, api_password, host)
 

@@ -1,3 +1,4 @@
+from xml.etree import ElementTree
 from insalesapi.objects.apiObject import ApiObject
 
 class Image(ApiObject):

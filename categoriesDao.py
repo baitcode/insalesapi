@@ -1,7 +1,7 @@
-from skychip.insales.api import ApiObjectCRUDDao
-from skychip.insales.objects import Category
+from insalesapi.baseDao import BaseDao
+from insalesapi.objects.category import Category
 
-class CategoriesDao(ApiObjectCRUDDao):
+class CategoriesDao(BaseDao):
 
     def __init__(self, api_key, api_password, host):
         super(CategoriesDao, self).__init__('category', api_key, api_password, host)
