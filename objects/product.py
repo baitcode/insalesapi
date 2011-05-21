@@ -1,4 +1,4 @@
-from insalesapi.objects.option import Option
+from insalesapi.objects.optionName import OptionName
 from insalesapi.objects.modification import Modification
 from xml.etree import ElementTree
 from insalesapi.objects.image import Image
@@ -11,48 +11,68 @@ class Product(ApiObject):
         self.modifications = ElementTree.SubElement(self.root(), 'variants', attrib={'type': 'array'})
         self.option_names = ElementTree.SubElement(self.root(), 'option-names', attrib={'type': 'array'})
 
-    def getName(self):
-        return self.element.find('title').text
+    def getTitle(self):
+        return self.gf('title')
 
-    def getSizes(self, custom_filter = lambda tmp: True):
-        variants = self.element.find('variants').findall('variant')
-        return Modification.wrapCollection(variants, custom_filter)
+    def setTitle(self, title):
+        """@rtype: L{Product}"""
+        return self.sf('title', title)
 
-    def getAvailableSizes(self):
-        return self.getSizes(self.if_available)
+    def getModifications(self, filter = lambda x: True):
+        return Modification.wrapCollection(self.root().findall('variant'), filter)
+
+    def getAvailableModifications(self):
+        return self.getModifications(self.if_available)
+
+    def addModification(self, modification):
+        """@rtype: L{Product}"""
+        assert isinstance(modification, Modification), 'modification should be Modification object.'
+        return self.sf('variants', modification)
+
+    #is it really needed?
+    def removeModification(self, id):
+        """@rtype: L{Product}"""
+        modifications = self.getModifications(lambda x: x.getId() == id)
+        for modification in modifications:
+            self.root().remove(modification.root())
+        return self
 
     def getImages(self):
-        images = self.element.find('images').findall('image')
-        return Image.wrapCollection(images)
+        return Image.wrapCollection(self.root().findall('image'))
+
+    def getCategory(self):
+        """@rtype: L{Product}"""
+        return int(self.gf('category-id'))
+
+    def setCategory(self, category_id):
+        """@rtype: L{Product}"""
+        return self.sf('category-id', int(category_id))
+
+    def getDescription(self):
+        """@rtype: L{Product}"""
+        return self.gf('description')
+
+    def setDescription(self, description):
+        """@rtype: L{Product}"""
+        return self.sf('description', description)
+
+    def getShortDescription(self):
+        return self.gf('short-description')
+
+    def setShortDescription(self, description):
+        """@rtype: L{Product}"""
+        return self.sf('short-description', description)
+
+    def getOptionNames(self):
+        return OptionName.wrapCollection(self.root().findall('option-name'))
+
+    def addOptionName(self, option):
+        """@rtype: L{Product}"""
+        assert isinstance(option, OptionName), 'option should be Option object.'
+        return self.sf('option-names', option)
 
     @classmethod
     def newProduct(cls):
         root = ElementTree.Element("product")
         tree = ElementTree.ElementTree(root)
         return Product(tree)
-
-    def setCategory(self, category_id):
-        """@rtype: L{Product}"""
-        return self._chainExecution(lambda product: product._createField('category-id', category_id, attributes=dict(type='integer')))
-
-    def setTitle(self, title):
-        """@rtype: L{Product}"""
-        return self._chainExecution(lambda product: product._createField('title', title))
-
-    def setDescription(self, description):
-        """@rtype: L{Product}"""
-        return self._chainExecution(lambda product: product._createField('description', description))
-
-    def setShortDescription(self, description):
-        """@rtype: L{Product}"""
-        return self._chainExecution(lambda product: product._createField('short-description', description))
-
-    def addModification(self, modification):
-        """@rtype: L{Product}"""
-        assert isinstance(modification, Modification), 'modification should be Modification object.'
-        return self._chainExecution(lambda product: product._createField('variants', modification))
-
-    def addOptionName(self, option):
-        """@rtype: L{Product}"""
-        assert isinstance(option, Option), 'option should be Option object.'
-        return self._chainExecution(lambda product: product._createField('option-names', option))
