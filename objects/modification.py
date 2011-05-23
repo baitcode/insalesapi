@@ -8,75 +8,75 @@ class Modification(ApiObject):
         super(Modification, self).__init__(treeElement)
         self.option_values = ElementTree.SubElement(self.root(), 'option-values', attrib={'type': 'array'})
 
-    def getTitle(self):
-        return self.gf('title')
+    def get_title(self):
+        return self._gf('title')
 
-    def setTitle(self, title):
+    def set_title(self, title):
         """ @rtype : L{Modification} """
-        return self.sf('title', title)
+        return self._sf('title', title)
 
-    def getQuantity(self):
+    def get_quantity(self):
         """ #rtype: L{Modification}"""
-        return int(self.gf('quantity'))
+        return int(self._gf('quantity'))
 
-    def setQuantity(self, quantity):
+    def set_quantity(self, quantity):
         """ @rtype : L{Modification} """
-        return self.sf('quantity', int(quantity))
+        return self._sf('quantity', int(quantity))
 
-    def getPrice(self):
-        return decimal(self.gf('price'))
+    def get_price(self):
+        return decimal(self._gf('price'))
 
-    def setPrice(self, price):
+    def set_price(self, price):
         """@rtype: L{Modification}"""
-        return self.sf('price', decimal(price))
+        return self._sf('price', decimal(price))
 
-    def setCostPrice(self, cost_price):
+    def set_cost_price(self, cost_price):
         """@rtype: L{Modification}"""
-        return self.sf('cost-price', decimal(cost_price))
+        return self._sf('cost-price', decimal(cost_price))
 
-    def getCostPrice(self):
+    def get_cost_price(self):
         """@rtype: L{Modification}"""
-        return decimal(self.gf('cost-price'))
+        return decimal(self._gf('cost-price'))
 
-    def setOldPrice(self, old_price):
+    def set_old_price(self, old_price):
         """@rtype: L{Modification}"""
-        return self.sf('old-price', decimal(old_price))
+        return self._sf('old-price', decimal(old_price))
 
-    def getOldPrice(self):
+    def get_old_price(self):
         """@rtype: L{Modification}"""
-        return decimal(self.gf('old-price'))
+        return decimal(self._gf('old-price'))
 
-    def getQuantity(self):
+    def get_quantity(self):
         """@rtype: L{Modification}"""
-        return int(self.gf('quantity'))
+        return int(self._gf('quantity'))
 
-    def setQuantity(self, quantity):
+    def set_quantity(self, quantity):
         """@rtype: L{Modification}"""
-        return self.sf('quantity', int(quantity))
+        return self._sf('quantity', int(quantity))
 
-    def getOptions(self, filter = lambda x: True):
+    def get_options(self, filter = lambda x: True):
         return OptionValue.wrapCollection(self.root().findall('option-values'), filter)
 
-    def addOption(self, option):
+    def add_option(self, option):
         """#rtype: L{Modification}"""
-        return self.sf('option-values', option)
+        return self._sf('option-values', option)
 
-    def removeOption(self, id):
+    def remove_option(self, id):
         """#rtype: L{Modification}"""
-        options = self.getOptions(lambda x: x.getId() == id)
+        options = self.get_options(lambda x: x.get_Id() == id)
         for option in options:
             self.root().remove(option.root())
         return self
 
-    def getSku(self):
-        return self.gf('sku')
+    def get_sku(self):
+        return self._gf('sku')
 
-    def setSku(self, sku):
+    def set_sku(self, sku):
         """#rtype: L{Modification}"""
-        return self.sf('sku', sku)
+        return self._sf('sku', sku)
 
     @classmethod
-    def newModification(cls):
+    def new_modification(cls):
         root = ElementTree.Element('variant')
         tree = ElementTree.ElementTree(root)
         return Modification(tree)

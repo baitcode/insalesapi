@@ -5,72 +5,72 @@ class Collection(ApiObject):
     def __init__(self, treeElement):
         super(Collection, self).__init__(treeElement)
 
-    def isHidden(self):
-        return bool(self.gf('is-hidden'))
+    def is_hidden(self):
+        return bool(self._gf('is-hidden'))
 
-    def setIsHidden(self, hidden):
-        return self.sf('is-hidden', bool(hidden))
+    def set_is_hidden(self, hidden):
+        return self._sf('is-hidden', bool(hidden))
 
-    def getParentId(self):
-        return int(self.gf('parent-id'))
+    def get_parent_id(self):
+        return int(self._gf('parent-id'))
 
-    def setParentId(self, parentId):
-        return self.sf('parent-id', parentId)
+    def set_parent_id(self, parentId):
+        return self._sf('parent-id', parentId)
 
 
-    def getToTorgMail(self):
-        return bool(self.gf('to-torg-mail'))
+    def get_to_torg_mail(self):
+        return bool(self._gf('to-torg-mail'))
 
-    def setToTorgMail(self, val):
-        return self.sf('to-torg-mail', bool(val))
+    def set_to_torg_mail(self, val):
+        return self._sf('to-torg-mail', bool(val))
 
-    def getToYandexMarket(self):
-        return bool(self.gf('to-yandex-market'))
+    def get_to_yandex_market(self):
+        return bool(self._gf('to-yandex-market'))
 
-    def setToYandexMarket(self, val):
-        return self.sf('to-yandex-market', bool(val))
+    def set_to_yandex_market(self, val):
+        return self._sf('to-yandex-market', bool(val))
 
-    def getTitle(self):
-        return bool(self.gf('title'))
+    def get_title(self):
+        return bool(self._gf('title'))
 
-    def setTitle(self, title):
-        return self.sf('title', title)
+    def set_title(self, title):
+        return self._sf('title', title)
 
-    def getDescription(self):
-        return self.gf('description')
+    def get_description(self):
+        return self._gf('description')
 
-    def setDescritption(self, description):
-        return self.sf('description', description)
+    def set_descritption(self, description):
+        return self._sf('description', description)
 
-    def getHtmlTitle(self):
-        return self.gf('html-title')
+    def get_html_title(self):
+        return self._gf('html-title')
 
-    def setHtmlTitle(self, title):
-        return self.sf('html-title', title)
+    def set_html_title(self, title):
+        return self._sf('html-title', title)
 
-    def getMetaDescription(self):
-        return self.gf('meta-description')
+    def get_meta_description(self):
+        return self._gf('meta-description')
 
-    def setMetaDescription(self, description):
-        return self.sf('meta-description', description)
+    def set_meta_description(self, description):
+        return self._sf('meta-description', description)
 
-    def getMetaKeywords(self):
-        return self.gf('meta-keywords')
+    def get_meta_keywords(self):
+        return self._gf('meta-keywords')
 
-    def setMetaKeywords(self, keywords):
-        return self.sf('meta-keywords', keywords)
+    def set_meta_keywords(self, keywords):
+        return self._sf('meta-keywords', keywords)
 
-    def getPermalink(self):
-        return self.gf('permalink')
+    def get_permalink(self):
+        return self._gf('permalink')
 
-    def setPermalink(self, permalink):
-        return self.sf('permalink', permalink)
+    def set_permalink(self, permalink):
+        return self._sf('permalink', permalink)
 
-    def getUrl(self):
-        return self.gf('url')
+    def get_url(self):
+        return self._gf('url')
 
     @classmethod
-    def newCollection(cls):
+    def new_collection(cls):
         root = ElementTree.Element('collection')
         tree = ElementTree.ElementTree(root)
         return Collection(tree)

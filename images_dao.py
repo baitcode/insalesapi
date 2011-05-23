@@ -16,8 +16,7 @@ class ImagesDao(BaseDao):
         return Image.wrapCollection(images)
 
     def add(self, product_id, image, lang=None):
-        #TODO: validation, src title
-        images = self.create_file('/admin/products/%d/images.xml' % product_id, image, lang)
+        images = self.create('/admin/products/%d/images.xml' % product_id, image, lang)
         return Image.wrapCollection(images)
 
     def edit(self, product_id, image_id, lang=None):

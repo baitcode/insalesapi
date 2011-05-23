@@ -4,7 +4,7 @@ from insalesapi.objects.option_name import OptionName
 class OptionNamesDao(BaseDao):
 
     def __init__(self, api_key, api_password, host):
-        super(OptionNamesDao, self).__init__('product', api_key, api_password, host)
+        super(OptionNamesDao, self).__init__('option-name', api_key, api_password, host)
 
     def get_list(self, lang=None):
         options = self.read('/admin/option_names.xml', lang)
@@ -19,7 +19,7 @@ class OptionNamesDao(BaseDao):
         return OptionName.wrapCollection(options)
 
     def edit(self, optionName, lang=None):
-        id = optionName.getId()
+        id = optionName.get_Id()
         options = self.update('/admin/option_names/%d' % id, optionName, lang)
         return OptionName.wrapCollection(options)
 

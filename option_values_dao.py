@@ -4,9 +4,9 @@ from insalesapi.objects.option_value import OptionValue
 class OptionValuesDao(BaseDao):
 
     def __init__(self, api_key, api_password, host):
-        super(OptionValuesDao, self).__init__('product', api_key, api_password, host)
+        super(OptionValuesDao, self).__init__('option-value', api_key, api_password, host)
 
-    def getList(self, lang=None):
+    def get_list(self, lang=None):
         options = self.read('/admin/option_values.xml', lang)
         return OptionValue.wrapCollection(options)
 
@@ -19,7 +19,7 @@ class OptionValuesDao(BaseDao):
         return OptionValue.wrapCollection(options)
 
     def edit(self, optionNameId, optionValue, lang=None):
-        id = optionValue.getId()
+        id = optionValue.get_Id()
         options = self.update('/admin/option_names/%d/option_values/%d' % (optionNameId, id), optionValue, lang)
         return OptionValue.wrapCollection(options)
 

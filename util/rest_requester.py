@@ -19,20 +19,9 @@ class RestRequester(object):
 
     def post(self, url, body, lang=None):
         req = urllib2.Request(self.prepare_url(url, lang))
-        print str(body)
         req.add_data(str(body))
         req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
         req.add_header('Content-Type', 'application/xml')
-        assert req.get_method() == 'POST'
-        print('requesting {0}'.format(url))
-        return urllib2.urlopen(req)
-
-    def post_file(self, url, body, lang=None):
-        req = urllib2.Request(self.prepare_url(url, lang))
-        print str(body)
-        req.add_data(str(body))
-        req.add_header('Authorization', 'Basic {0}'.format(self.auth_header))
-        req.add_header('Content-Type', 'multipart/formdata')
         assert req.get_method() == 'POST'
         print('requesting {0}'.format(url))
         return urllib2.urlopen(req)

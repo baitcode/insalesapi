@@ -3,38 +3,42 @@ from xml.etree import ElementTree
 
 class ApiObject(object):
 
-    def getId(self):
-        return int(self.gf('id'))
+    def get_Id(self):
+        try:
+            return int(self._gf('id'))
+        except ValueError:
+            return -1
 
-    def setId(self, sf):
+    def set_id(self, sf):
         """@rtype:L{ApiObject}"""
-        return self.sf('id', int(id))
+        return self._sf('id', int(id))
 
-    def getCreatedAt(self):
+    def get_created_at(self):
         #TODO: Test and fix
-        return self.gf('created-at')
+        return self._gf('created-at')
 
-    def getUpdatedAt(self):
+    def get_updated_at(self):
         #TODO: Test and fix
-        return self.gf('updated-at')
+        return self._gf('updated-at')
 
-    def gf(self, name):
+    def _gf(self, name):
         obj = self.root().find(name)
         if obj is None:
             return ""
         return obj.text
 
-    def sf(self, name, value):
+    def _sf(self, name, value):
         """@rtype: L{ApiObject}"""
         value_type = dict()
         if isinstance(value, int):
             value_type[type] = 'integer'
-        elif isinstance(value, decimal):
-            value_type[type] = 'decimal'
+#        elif isinstance(value, decimal):
+#            value_type[type] = 'decimal'
+#            Decimal
+#            
         elif isinstance(value, bool):
             value_type[type] = 'boolean'
-        return self._chainExecution(lambda obj: obj._createField(name, value), value_type)
-
+        return self._chainExecution(lambda obj: obj._createField(name, value, value_type))
 
     def __init__(self, treeElement):
         super(ApiObject, self).__init__()

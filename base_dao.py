@@ -15,11 +15,6 @@ class BaseDao(object):
         response = self.requester.post( url, body, lang)
         return self._get_object(response)
 
-    def create_file(self, path, body, lang=None):
-        url = 'http://{0}{1}'.format(self.host, path)
-        response = self.requester.post_file( url, body, lang)
-        return self._get_object(response)
-
     def _get_object(self, response):
         buffer = response.read()
         res = list()

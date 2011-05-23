@@ -5,29 +5,29 @@ class Category(ApiObject):
     def __init__(self, treeElement):
         super(Category, self).__init__(treeElement)
 
-    def setParentId(self, parent_id):
+    def set_parent_id(self, parent_id):
         """@rtype: L{Category}"""
-        return self.sf('parent-id', int(parent_id))
+        return self._sf('parent-id', int(parent_id))
 
-    def getParentId(self):
-        return int(self.gf('id'))
+    def get_parent_id(self):
+        return int(self._gf('id'))
 
-    def getTitle(self):
-        return self.gf('title')
+    def get_title(self):
+        return self._gf('title')
 
-    def setTitle(self, title):
+    def set_title(self, title):
         """@rtype: L{skychip.insales.objects.Category}"""
-        return self.sf('title', title)
+        return self._sf('title', title)
 
-    def getPosition(self):
-        return int(self.gf('position'))
+    def get_position(self):
+        return int(self._gf('position'))
 
-    def setPosition(self, position):
+    def set_position(self, position):
         """@rtype: L{skychip.insales.objects.Category}"""
-        return self.sf('position', position)
+        return self._sf('position', position)
 
     @classmethod
-    def newCategory(cls):
+    def new_category(cls):
         """
         @rtype: L{Category}
         """
