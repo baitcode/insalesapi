@@ -1,3 +1,4 @@
+import urlparse
 from insalesapi.base_dao import BaseDao
 from insalesapi.objects.image import Image
 
@@ -26,3 +27,33 @@ class ImagesDao(BaseDao):
 
     def remove(self, product_id, image_id, lang=None):
         return self.delete('/admin/products/%d/images/%d' % (product_id, image_id), lang)
+
+    def image_exists(self, images, filename):
+        exists = False
+        for image in images:
+            server_filename = urlparse.urlparse(image.get_original_url()).path.rpartition('/')[2]
+            if server_filename == filename:
+                exists = True
+        return exists
+
+    def _reserve_image_position(self, position, product_id, product_images):
+        rang = range(position, len(product_images) + 1)
+        rang.reverse()
+        for i in rang:
+            shift_image = product_images[i - 1].set_position(i + 1)
+            self.edit(product_id, shift_image.get_id(), shift_image)
+
+    def insert_image(self, product_id, image, position):
+        product_images = self.get_list(product_id)
+
+        if self.image_exists(product_images, image.get_filename()):
+            return
+
+        if position < 0:
+            position = len(product_images) + 1 + position
+
+        self._reserve_image_position(position, product_id, product_images)
+        uploaded_image = self.add(product_id, image)[0]
+        uploaded_image.set_position(position)
+        self.edit(product_id, uploaded_image.get_id(), uploaded_image)
+

@@ -3,7 +3,7 @@ from xml.etree import ElementTree
 
 class ApiObject(object):
 
-    def get_Id(self):
+    def get_id(self):
         try:
             return int(self._gf('id'))
         except ValueError:
@@ -31,13 +31,17 @@ class ApiObject(object):
         """@rtype: L{ApiObject}"""
         value_type = dict()
         if isinstance(value, int):
-            value_type[type] = 'integer'
-#        elif isinstance(value, decimal):
-#            value_type[type] = 'decimal'
-#            Decimal
-#            
+            value_type['type'] = 'integer'
         elif isinstance(value, bool):
-            value_type[type] = 'boolean'
+            value_type['type'] = 'boolean'
+
+        if not len(value_type):
+            try:
+                decimal(value)
+                value_type['type'] = 'decimal'
+            except TypeError:
+                pass
+
         return self._chainExecution(lambda obj: obj._createField(name, value, value_type))
 
     def __init__(self, treeElement):

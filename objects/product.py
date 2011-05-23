@@ -32,7 +32,7 @@ class Product(ApiObject):
     #is it really needed?
     def remove_modification(self, id):
         """@rtype: L{Product}"""
-        modifications = self.get_modifications(lambda x: x.get_Id() == id)
+        modifications = self.get_modifications(lambda x: x.get_id() == id)
         for modification in modifications:
             self.root().remove(modification.root())
         return self

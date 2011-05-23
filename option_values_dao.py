@@ -19,7 +19,7 @@ class OptionValuesDao(BaseDao):
         return OptionValue.wrapCollection(options)
 
     def edit(self, optionNameId, optionValue, lang=None):
-        id = optionValue.get_Id()
+        id = optionValue.get_id()
         options = self.update('/admin/option_names/%d/option_values/%d' % (optionNameId, id), optionValue, lang)
         return OptionValue.wrapCollection(options)
 

@@ -24,7 +24,7 @@ class CategoriesDao(BaseDao):
         """
         @rtype: L{list}
         """
-        categories = self.update('/admin/categories/%d' % int(category.get_Id()), category, lang)
+        categories = self.update('/admin/categories/%d' % int(category.get_id()), category, lang)
         return Category.wrapCollection(categories)
 
     def add(self, category, lang=None):

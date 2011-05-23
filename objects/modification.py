@@ -63,7 +63,7 @@ class Modification(ApiObject):
 
     def remove_option(self, id):
         """#rtype: L{Modification}"""
-        options = self.get_options(lambda x: x.get_Id() == id)
+        options = self.get_options(lambda x: x.get_id() == id)
         for option in options:
             self.root().remove(option.root())
         return self
