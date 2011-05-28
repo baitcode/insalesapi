@@ -5,13 +5,13 @@ class OptionValue(ApiObject):
     def __init__(self, treeElement):
         super(OptionValue, self).__init__(treeElement)
 
-    def get_title(self):
-        return self._gf('title')
+    def get_value(self):
+        return self._gf('value')
 
-    def set_title(self, title):
+    def set_value(self, title):
         """ @rtype: L{OptionValue} """
         assert isinstance(title, unicode), 'title should be unicode'
-        return self._sf('title', title)
+        return self._sf('value', title)
 
     def get_position(self):
         try:
@@ -36,6 +36,6 @@ class OptionValue(ApiObject):
 
     @classmethod
     def new_option_value(cls):
-        root = ElementTree.Element('option-value')
+        root = ElementTree.Element('option')
         tree = ElementTree.ElementTree(root)
         return OptionValue(tree)

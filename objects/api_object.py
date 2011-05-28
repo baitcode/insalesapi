@@ -1,5 +1,7 @@
+from array import array
 import decimal
 from xml.etree import ElementTree
+from xml.etree.ElementTree import Element
 
 class ApiObject(object):
 
@@ -9,7 +11,7 @@ class ApiObject(object):
         except ValueError:
             return -1
 
-    def set_id(self, sf):
+    def set_id(self, id):
         """@rtype:L{ApiObject}"""
         return self._sf('id', int(id))
 
@@ -34,13 +36,14 @@ class ApiObject(object):
             value_type['type'] = 'integer'
         elif isinstance(value, bool):
             value_type['type'] = 'boolean'
-
-        if not len(value_type):
-            try:
-                decimal(value)
-                value_type['type'] = 'decimal'
-            except TypeError:
-                pass
+        elif isinstance(value, decimal.Decimal):
+            value_type['type'] = 'decimal'
+        elif isinstance(value, (list, array, dict, set)):
+            value_type['type'] = 'array'
+        elif isinstance(value, ApiObject): #TODO: check for iterator?
+            pass
+        else:
+            value_type['type'] = 'text'
 
         return self._chainExecution(lambda obj: obj._createField(name, value, value_type))
 
@@ -60,8 +63,10 @@ class ApiObject(object):
 
     def _prepare_element(self, attributes, name, root):
         tmp = root.find(name)
-        if tmp is None:
+
+        if not isinstance(tmp, Element):
             tmp = ElementTree.SubElement(root, name)
+
         for k, v in attributes.items():
             tmp.set(k, v)
         return tmp
@@ -84,7 +89,7 @@ class ApiObject(object):
         x(self)
         return self
 
-    def dump(self, margin='', obj=None):
+    def dump(self, margin='\n', obj=None):
         if obj is None:
             obj = self
 

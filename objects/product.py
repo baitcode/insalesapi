@@ -5,11 +5,29 @@ from insalesapi.objects.image import Image
 from insalesapi.objects.api_object import ApiObject
 
 class Product(ApiObject):
+    #TODO: variants and variants-attributes, should be handled internally
     def __init__(self, treeElement):
         super(Product, self).__init__(treeElement)
         self.if_available = lambda variant: variant.get_quantity() > 0
-        self.modifications = ElementTree.SubElement(self.root(), 'variants', attrib={'type': 'array'})
-        self.option_names = ElementTree.SubElement(self.root(), 'option-names', attrib={'type': 'array'})
+        self.options_field_name = 'options'
+
+    def _variants_node(self):
+        variants = self.root().find('variants')
+        if variants is None or len(variants) == 0:
+            variants = ElementTree.SubElement(self.root(), 'variants', attrib={'type': 'array'})
+        return variants
+
+    def _variants_attributes(self):
+        variants = self.root().find('variants-attributes')
+        if variants is None:
+            variants = ElementTree.SubElement(self.root(), 'variants-attributes', attrib={'type': 'array'})
+        return variants
+
+    def _option_names(self):
+        variants = self.root().find(self.options_field_name)
+        if variants is None:
+            variants = ElementTree.SubElement(self.root(), self.options_field_name, attrib={'type': 'array'})
+        return variants
 
     def get_title(self):
         return self._gf('title')
@@ -27,7 +45,8 @@ class Product(ApiObject):
     def add_modification(self, modification):
         """@rtype: L{Product}"""
         assert isinstance(modification, Modification), 'modification should be Modification object.'
-        return self._sf('variants', modification)
+        self._variants_attributes()
+        return self._sf('variants-attributes', modification)
 
     #is it really needed?
     def remove_modification(self, id):
@@ -69,7 +88,8 @@ class Product(ApiObject):
     def add_option_name(self, option):
         """@rtype: L{Product}"""
         assert isinstance(option, OptionName), 'option should be Option object.'
-        return self._sf('option-names', option)
+        self._option_names()
+        return self._sf(self.options_field_name, option)
 
     @classmethod
     def new_product(cls):

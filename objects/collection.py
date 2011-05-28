@@ -12,11 +12,13 @@ class Collection(ApiObject):
         return self._sf('is-hidden', bool(hidden))
 
     def get_parent_id(self):
-        return int(self._gf('parent-id'))
+        try:
+            return int(self._gf('parent-id'))
+        except TypeError:
+            return -1
 
     def set_parent_id(self, parentId):
         return self._sf('parent-id', parentId)
-
 
     def get_to_torg_mail(self):
         return bool(self._gf('to-torg-mail'))

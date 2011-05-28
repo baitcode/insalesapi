@@ -14,6 +14,9 @@ class OptionName(ApiObject):
         assert isinstance(title, unicode), 'title should be unicode'
         return self._sf('title', title)
 
+    def set_value(self, value):
+        return self._sf('value', value)
+
     def get_position(self):
         return int(self._gf('position'))
 
