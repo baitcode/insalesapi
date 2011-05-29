@@ -8,7 +8,7 @@ class OptionValue(ApiObject):
     def get_value(self):
         return self._gf('value')
 
-    def set_value(self, title):
+    def get_value(self, title):
         """ @rtype: L{OptionValue} """
         assert isinstance(title, unicode), 'title should be unicode'
         return self._sf('value', title)

@@ -1,5 +1,4 @@
 import urlparse
-from xml.etree.ElementTree import dump
 from insalesapi.base_dao import BaseDao
 from insalesapi.objects.image import Image
 
@@ -23,11 +22,11 @@ class ImagesDao(BaseDao):
 
     def edit(self, product_id, image_id, image, lang=None):
         """ @rtype: L{list} """
-        images = self.update('/admin/products/%d/images/%d' % (product_id, image_id), image, lang)
+        images = self.update('/admin/products/%d/images/%d.xml' % (product_id, image_id), image, lang)
         return Image.wrapCollection(images)
 
     def remove(self, product_id, image_id, lang=None):
-        return self.delete('/admin/products/%d/images/%d' % (product_id, image_id), lang)
+        return self.delete('/admin/products/%d/images/%d.xml' % (product_id, image_id), lang)
 
     def image_exists(self, images, filename):
         exists = False
@@ -41,9 +40,8 @@ class ImagesDao(BaseDao):
         rang = range(position, len(product_images) + 1)
         rang.reverse()
         for i in rang:
-            img = Image.new_image().set_position(i + 1)
-            id = product_images[i - 1].get_id()
-            self.edit(product_id, id, img)
+            shift_image = product_images[i - 1].set_position(i + 1)
+            self.edit(product_id, shift_image.get_id(), shift_image)
 
     def insert_image(self, product_id, image, position):
         product_images = self.get_list(product_id)

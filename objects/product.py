@@ -36,6 +36,27 @@ class Product(ApiObject):
         """@rtype: L{Product}"""
         return self._sf('title', title)
 
+    def get_html_title(self,):
+        return self._gf('html-title')
+
+    def set_html_title(self, title):
+        """@rtype: L{Product}"""
+        return self._sf('html-title', title)
+
+    def get_meta_keywords(self):
+        return self._gf('meta-keywords')
+
+    def set_meta_keywords(self, keywords):
+        """@rtype: L{Product}"""
+        return self._sf('meta-keywords', keywords)
+
+    def get_meta_description(self):
+        return self._gf('meta-description')
+
+    def set_meta_description(self, desc):
+        """@rtype: L{Product}"""
+        return self._sf('meta-description', desc)
+
     def get_modifications(self, filter = lambda x: True):
         return Modification.wrapCollection(self.root().findall('variant'), filter)
 
