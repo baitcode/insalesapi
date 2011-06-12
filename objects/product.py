@@ -3,6 +3,7 @@ from insalesapi.objects.modification import Modification
 from xml.etree import ElementTree
 from insalesapi.objects.image import Image
 from insalesapi.objects.api_object import ApiObject
+from insalesapi.objects.property_attribute import PropertyAttribute
 
 class Product(ApiObject):
     #TODO: variants and variants-attributes, should be handled internally
@@ -10,6 +11,7 @@ class Product(ApiObject):
         super(Product, self).__init__(treeElement)
         self.if_available = lambda variant: variant.get_quantity() > 0
         self.options_field_name = 'options'
+        self.property_field_name = 'properties-attributes'
 
     def _variants_node(self):
         variants = self.root().find('variants')
@@ -22,6 +24,12 @@ class Product(ApiObject):
         if variants is None:
             variants = ElementTree.SubElement(self.root(), 'variants-attributes', attrib={'type': 'array'})
         return variants
+
+    def _properties_attributes(self):
+        properties = self.root().find(self.property_field_name)
+        if properties is None:
+            properties = ElementTree.SubElement(self.root(), self.property_field_name, attrib={'type': 'array'})
+        return properties
 
     def _option_names(self):
         variants = self.root().find(self.options_field_name)
@@ -58,7 +66,7 @@ class Product(ApiObject):
         return self._sf('meta-description', desc)
 
     def get_modifications(self, filter = lambda x: True):
-        return Modification.wrapCollection(self.root().findall('variant'), filter)
+        return Modification.wrapCollection(self.root().iterfind('variant'), filter)
 
     def get_available_modifications(self):
         return self.get_modifications(self.if_available)
@@ -78,7 +86,7 @@ class Product(ApiObject):
         return self
 
     def get_images(self):
-        return Image.wrapCollection(self.root().findall('image'))
+        return Image.wrapCollection(self.root().iterfind('image'))
 
     def get_category(self):
         """@rtype: L{Product}"""
@@ -111,6 +119,12 @@ class Product(ApiObject):
         assert isinstance(option, OptionName), 'option should be Option object.'
         self._option_names()
         return self._sf(self.options_field_name, option)
+
+    def add_property(self, property):
+        """@rtype: L{Product}"""
+        assert isinstance(property, PropertyAttribute), 'option should be Option object.'
+        self._properties_attributes()
+        return self._sf(self.property_field_name, property)
 
     @classmethod
     def new_product(cls):
