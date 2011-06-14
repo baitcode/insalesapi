@@ -13,3 +13,5 @@ Everything is quite simple and intuitive, if not, feel free to submit ticket.
 More on insales www.insales.ru.
 
 Good luck, and feel free to ask any question by email: batiyiv at gmail dot com.
+
+This API helped me to upload our whole catalog of products with photo to insales server. However Insales platform is pretty raw and contains lots of bugs itself (including documentation). So as soon as they fix some of bugs i'll fix some functions.
