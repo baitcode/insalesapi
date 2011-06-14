@@ -66,7 +66,7 @@ class Product(ApiObject):
         return self._sf('meta-description', desc)
 
     def get_modifications(self, filter = lambda x: True):
-        return Modification.wrapCollection(self.root().iterfind('variant'), filter)
+        return Modification.wrapCollection(self.element.findall('//variant'), filter)
 
     def get_available_modifications(self):
         return self.get_modifications(self.if_available)
@@ -86,7 +86,7 @@ class Product(ApiObject):
         return self
 
     def get_images(self):
-        return Image.wrapCollection(self.root().iterfind('image'))
+        return Image.wrapCollection(self.element.findall('//image'))
 
     def get_category(self):
         """@rtype: L{Product}"""
